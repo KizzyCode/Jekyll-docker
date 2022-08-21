@@ -1,0 +1,67 @@
+version: "3.9"
+services:
+  jekyll:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      # Forward SSH and HTTP ports
+      - "2222:22"
+      - "8080:80"
+    #volumes:
+    #  # Mount git directory if you want to keep it persistent
+    #  - /var/container-jekyll:/home/jekyll/git
+    environment:
+      # WARNING: Both SSH keys are well-known and unsafe; do not use in prod! See also https://github.com/KizzyCode/well_known_id_rsa
+      SSH_PUBKEY_0: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCjBBs4b896qxwo1OsAEwu8vhhjfGbU2q/W/2wDNYaGUfdboZvI6cMpoO2RbXGoEXWsJ4PUlQFRab2kMwp8zY07lvz92ApSGBKjM4zBzOHYI8g2vGZt2Jmx/xvz4LaveGWCXXInq4Ii3i5q9EGg90pxoZloj9bXXx5tIrd49BA4sS+YumgQfUzTQcHn59XgErsfgy89cmKlNMewD9Eus/5Q4lO2gDioT7Uoqbxz0VeLH8jZSyK/KGSEgfN4VQF0PvNl4vEb4WRgtrvCjK9pCKftFNDDuVOF5kRurW+jRpGaIfBz2sqGuTcFjpHgsIs/IFCbAnNdLWBrfQvUdE5cTWV5lhvS09HeJr+RzJ34ivl8GbrnBtKkwDf5/+jqLJA61rQ9YPU6hErY8+6c4m878/FQRekXFQAMy0R2o5yVSp3bw2FRB7AKAkVxIOPKHZWXItmtQyp3NhQGerMSrf4TGc4QXbrkiE4HJ31PBOT+tTK6r/A4ozHjICrsAh0Wyf8dLXFDz1VlE1Jj91Gk3jf76753vUgT3d93oYutYjeBh8ULmFbxhXrv51u5meZpRdJcbj7RHeFVln/6S6DQTRrtW1CYj4zXn7b3RfYskEu29ShvEn+pOb9Tt2PDc76075DdQ8UtCpwSzmsceXUpkOGBVdDjmvHRiw3fjue6cyua0985gQ== well-known-standard-key@unsafe.org
+      SSH_SERVERKEY_RSA: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        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
+        -----END OPENSSH PRIVATE KEY-----
