@@ -28,7 +28,7 @@ function make_jekyll() {
     bundle exec jekyll build
     popd
 
-    # Repair permissions and popd
+    # Ensure that we have thttpd compatible permissions
     chmod -R u=rwX,g=rX,o=rX "$HOMEDIR/build/_site"
 }
 
@@ -44,7 +44,7 @@ function make_deploy() {
 }
 
 
-# Build the site and remove build artifacts
+# Build the site
 make_buildroot
 make_jekyll
 make_deploy
