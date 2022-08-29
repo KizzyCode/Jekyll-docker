@@ -87,7 +87,18 @@ function setup_repository() {
 }
 
 
+# Perform a first build if the repo is populated
+function first_build() {
+    # Check if the repo has any commits
+    if git ls-remote --exit-code "$HOMEDIR/git" >/dev/null; then
+        # Build site
+        su jekyll -c "/libexec/jekyll-post-receive.sh" || echo "!> Warning: Failed to rebuild site"
+    fi
+}
+
+
 # Prepare and start server
 setup_environment
 setup_repository
+first_build
 exec supervisord -c "/etc/supervisord.conf"
