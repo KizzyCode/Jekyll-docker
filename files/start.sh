@@ -5,65 +5,39 @@ HOMEDIR="/home/jekyll"
 SERVERDIR="/var/www"
 
 
-# Registers a secret SSH key for the server
-function register_serverkey() {
-    NAME="$1"
-    KEY="$2"
-
+# Setups SSH
+function setup_ssh() {
     # Create SSH directory
     mkdir -p "/etc/ssh"
     chown -R root "/etc/ssh"
-    
-    # Write private key
-    echo "$KEY" > "/etc/ssh/$NAME"
-    chmod u=rwX,g=,o= "/etc/ssh/$NAME"
 
-    # Generate public key
-    ssh-keygen -y -f "/etc/ssh/$NAME" > "/etc/ssh/$NAME.pub"
-    chmod u=rwX,g=rX,o=rX "/etc/ssh/$NAME.pub"
-}
+    # Deploy host keys
+    for KEY_TYPE in "SSH_HOST_RSA_KEY" "SSH_HOST_ECDSA_KEY" "SSH_HOST_ED25519_KEY"; do
+        # Check if the key exists
+        KEY="${!KEY_TYPE:-}"
+        if test -n "$KEY"; then
+            # Compute filename
+            FILE=`echo "$KEY_TYPE" | tr "[:upper:]" "[:lower:]"`
+            
+            # Write private key
+            echo "$KEY" > "/etc/ssh/$FILE"
+            chmod u=rwX,g=,o= "/etc/ssh/$FILE"
 
-
-# Registers a public SSH key for the jekyll user
-function register_userkey() {
-    KEY="$1"
+            # Generate public key
+            ssh-keygen -y -f "/etc/ssh/$FILE" > "/etc/ssh/$FILE.pub"
+            chmod u=rwX,g=rX,o=rX "/etc/ssh/$FILE.pub"
+        fi
+    done
 
     # Create SSH directory
     mkdir -p "$HOMEDIR/.ssh/"
     chown -R jekyll "$HOMEDIR/.ssh/"
     chmod -R u=rwX,g=,o= "$HOMEDIR/.ssh/"
 
-    # Write public key
-    echo "$KEY" >> "$HOMEDIR/.ssh/authorized_keys"
+    # Write public keys
+    echo "$SSH_AUTHORIZED_KEYS" > "$HOMEDIR/.ssh/authorized_keys"
     chmod -R u=rwX,g=,o= "$HOMEDIR/.ssh/"
     chmod -R u=rwX,g=rX,o=rX "$HOMEDIR/.ssh/authorized_keys"
-}
-
-
-# Applies the docker-compose environment
-function setup_environment() {
-    # Register server keys
-    if test -n "${SSH_SERVERKEY_RSA:-}"; then
-        register_serverkey "ssh_host_rsa_key" "$SSH_SERVERKEY_RSA"
-    fi
-    if test -n "${SSH_SERVERKEY_ECDSA:-}"; then
-        register_serverkey "ssh_host_ecdsa_key" "$SSH_SERVERKEY_ECDSA"
-    fi
-    if test -n "${SSH_SERVERKEY_ED25519:-}"; then
-        register_serverkey "ssh_host_ed25519_key" "$SSH_SERVERKEY_ED25519"
-    fi
-
-    # Register user keys
-	for INDEX in `seq 0 127`; do
-        # Get pubkey
-        VARNAME="SSH_PUBKEY_$INDEX"
-        PUBKEY="${!VARNAME:-}"
-
-        # Register pubkey
-        if test -n "$PUBKEY"; then
-            register_userkey "$PUBKEY"
-        fi
-    done
 }
 
 
@@ -98,7 +72,7 @@ function first_build() {
 
 
 # Prepare and start server
-setup_environment
+setup_ssh
 setup_repository
 first_build
 exec supervisord -c "/etc/supervisord.conf"

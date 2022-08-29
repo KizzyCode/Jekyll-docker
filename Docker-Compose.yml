@@ -13,9 +13,9 @@ services:
     #  - /var/containers/jekyll:/home/jekyll/git
     environment:
       # WARNING: Both SSH keys are well-known and unsafe; do not use in prod! See also https://github.com/KizzyCode/well_known_id_rsa
-      SSH_PUBKEY_0: |
+      SSH_AUTHORIZED_KEYS: |
         ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCjBBs4b896qxwo1OsAEwu8vhhjfGbU2q/W/2wDNYaGUfdboZvI6cMpoO2RbXGoEXWsJ4PUlQFRab2kMwp8zY07lvz92ApSGBKjM4zBzOHYI8g2vGZt2Jmx/xvz4LaveGWCXXInq4Ii3i5q9EGg90pxoZloj9bXXx5tIrd49BA4sS+YumgQfUzTQcHn59XgErsfgy89cmKlNMewD9Eus/5Q4lO2gDioT7Uoqbxz0VeLH8jZSyK/KGSEgfN4VQF0PvNl4vEb4WRgtrvCjK9pCKftFNDDuVOF5kRurW+jRpGaIfBz2sqGuTcFjpHgsIs/IFCbAnNdLWBrfQvUdE5cTWV5lhvS09HeJr+RzJ34ivl8GbrnBtKkwDf5/+jqLJA61rQ9YPU6hErY8+6c4m878/FQRekXFQAMy0R2o5yVSp3bw2FRB7AKAkVxIOPKHZWXItmtQyp3NhQGerMSrf4TGc4QXbrkiE4HJ31PBOT+tTK6r/A4ozHjICrsAh0Wyf8dLXFDz1VlE1Jj91Gk3jf76753vUgT3d93oYutYjeBh8ULmFbxhXrv51u5meZpRdJcbj7RHeFVln/6S6DQTRrtW1CYj4zXn7b3RfYskEu29ShvEn+pOb9Tt2PDc76075DdQ8UtCpwSzmsceXUpkOGBVdDjmvHRiw3fjue6cyua0985gQ== well-known-standard-key@unsafe.org
-      SSH_SERVERKEY_RSA: |
+      SSH_HOST_RSA_KEY: |
         -----BEGIN OPENSSH PRIVATE KEY-----
         b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
         NhAAAAAwEAAQAAAgEAowQbOG/PeqscKNTrABMLvL4YY3xm1Nqv1v9sAzWGhlH3W6GbyOnD
