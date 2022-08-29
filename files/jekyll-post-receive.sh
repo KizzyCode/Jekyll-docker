@@ -39,8 +39,8 @@ function make_deploy() {
     mkdir -p "$SERVERDIR"
     find "$SERVERDIR" -mindepth 1 -delete
 
-    # Copy/link all files
-    cp -lpr "$HOMEDIR/build/_site/." "$SERVERDIR/"
+    # Copy all files
+    cp -pr "$HOMEDIR/build/_site/." "$SERVERDIR/"
 }
 
 
