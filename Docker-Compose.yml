@@ -9,8 +9,9 @@ services:
       - "2222:22"
       - "8080:80"
     #volumes:
-    #  # Mount git directory if you want to keep it persistent
-    #  - /var/containers/jekyll:/home/jekyll/git
+    #  # Mount persistent git and site directories
+    #  - /var/containers/jekyll/git:/home/jekyll/git
+    #  - /var/containers/jekyll/site:/var/www
     environment:
       # WARNING: Both SSH keys are well-known and unsafe; do not use in prod! See also https://github.com/KizzyCode/well_known_id_rsa
       SSH_AUTHORIZED_KEYS: |
