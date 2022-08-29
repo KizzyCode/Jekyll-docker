@@ -92,7 +92,7 @@ function first_build() {
     # Check if the repo has any commits
     if git ls-remote --exit-code "$HOMEDIR/git" >/dev/null; then
         # Build site
-        su jekyll -c "/libexec/jekyll-post-receive.sh" || echo "!> Warning: Failed to rebuild site"
+        su jekyll -s "/bin/sh" -c "/libexec/jekyll-post-receive.sh" || echo "!> Warning: Failed to rebuild site"
     fi
 }
 
