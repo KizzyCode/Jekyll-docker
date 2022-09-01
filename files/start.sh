@@ -57,7 +57,7 @@ function setup_repository() {
     # Set permissions so that the build hook is able to write into $SERVERDIR
     mkdir -p "$SERVERDIR" 
     chown -R jekyll "$SERVERDIR"
-    chmod -R u=rwX,g=X,o=X "$SERVERDIR"
+    chmod -R u=rwX,g=rX,o=rX "$SERVERDIR"
 }
 
 
