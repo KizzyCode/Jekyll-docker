@@ -1,17 +1,14 @@
-version: "3.9"
 services:
   jekyll:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    build: ./
     ports:
       # Forward SSH and HTTP ports
-      - "2222:22"
-      - "8080:80"
-    #volumes:
-    #  # Mount persistent git and site directories
-    #  - /var/containers/jekyll/git:/home/jekyll/git
-    #  - /var/containers/jekyll/site:/var/www
+      - "127.0.0.1:2222:22"
+      - "127.0.0.1:8080:80"
+    volumes:
+      # Mount persistent git and site directories
+      - ./example/git:/home/jekyll/git:rw
+      - ./example/site:/var/www:rw
     environment:
       # WARNING: Both SSH keys are well-known and unsafe; do not use in prod! See also https://github.com/KizzyCode/well_known_id_rsa
       SSH_AUTHORIZED_KEYS: |

@@ -28,7 +28,7 @@ function make_jekyll() {
     bundle exec jekyll build
     popd
 
-    # Ensure that we have thttpd compatible permissions
+    # Ensure that we have nginx compatible permissions
     chmod -R u=rwX,g=rX,o=rX "$HOMEDIR/build/_site"
 }
 

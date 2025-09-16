@@ -1,7 +1,7 @@
 # kizzycode/jekyll
 
 `kizzycode/jekyll` is a minimal docker container that provides support for an automated
-`git-over-ssh -> jekyll build -> thttpd serve`-workflow.
+`git-over-ssh -> jekyll build -> nginx serve`-workflow.
 
 ## Internal workflow
 On startup, the container creates a bare git repository in `/home/jekyll/git` (associated remote:
