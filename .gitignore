@@ -3,4 +3,4 @@
 
 # Ignore example data
 /example/*
-!/mount/.gitkeep
+!/example/.gitkeep
